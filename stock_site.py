@@ -102,8 +102,7 @@ def index():
     # Convert the figures to JSON
     # PlotlyJSONEncoder appropriately converts pandas, datetime, etc
     # objects to their JSON equivalents
-    #graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
-    graphJSON = json.jsonify(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('index.html', ids=ids, graphJSON=graphJSON,
                            sp_total_data=sp_total_data, dow_total_data=dow_total_data,
