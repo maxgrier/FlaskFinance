@@ -1,10 +1,10 @@
 from flask import Flask, render_template
-from flask import request, redirect, url_for
-from matplotlib import pyplot as plt
-from mpld3 import plugins
+# from flask import request, redirect, url_for
+# from matplotlib import pyplot as plt
+# from mpld3 import plugins
 import pandas as pd
 from pandas import DataFrame
-import time
+# import time
 import yfinance as yf
 
 import json
