@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Flask Finance</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="static/style1.css">
@@ -21,13 +21,13 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
       <a href="#" class="w3-button w3-block">Home</a>
     </div>
     <div class="w3-col s3">
-      <a href="#plans" class="w3-button w3-block">SPY: ${{ sp_total_data[1] }}</a>
+      <a href="#plans" class="w3-button w3-block">SPY: ${{ '%0.2f' % sp_total_data[1] }}</a>
     </div>
     <div class="w3-col s3">
-      <a href="#about" class="w3-button w3-block">DIA: ${{ dow_total_data[1] }}</a>
+      <a href="#about" class="w3-button w3-block">DIA: ${{ '%0.2f' % dow_total_data[1] }}</a>
     </div>
     <div class="w3-col s3">
-      <a href="#contact" class="w3-button w3-block">QQQ: ${{ nasdaq_total_data[1] }}</a>
+      <a href="#contact" class="w3-button w3-block">QQQ: ${{ '%0.2f' % nasdaq_total_data[1] }}</a>
     </div>
   </div>
 </div>
@@ -132,13 +132,13 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
             <tbody>
                 
                 <tr>
-                  <td> ${{ sp_total_data.0 }}</td>
-                  <td> ${{ sp_total_data[1] }}</td>
-                  <td> ${{ sp_total_data[2] }}</td>
-                  <td> ${{ sp_total_data[3] }}</td>
-                  <td> {{ sp_total_data[4] }}</td>
-                  <td> {{ sp_total_data[5] }}</td>
-                  <td> {{ sp_total_data[6] }}</td>
+                  <td> ${{ '%0.2f' % sp_total_data.0 }}</td>
+                  <td> ${{ '%0.2f' % sp_total_data[1] }}</td>
+                  <td> ${{ '%0.2f' % sp_total_data[2] }}</td>
+                  <td> ${{ '%0.2f' % sp_total_data[3] }}</td>
+                  <td> {{ '%0.2f' % sp_total_data[4] }}</td>
+                  <td> {{ '%0.2f' % sp_total_data[5] }}</td>
+                  <td> {{ '%0.2f' % sp_total_data[6] }}</td>
                 </tr>
               </tbody>
         </table>
@@ -161,6 +161,7 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
 
         var graphs = {{graphJSON | safe}};
         var ids = {{ids | safe}};
+        var index = ["sp_total_data", "dow_total_data", "nasdaq_total_data"]
 
         let i = 0;
         for(i in graphs){
@@ -199,7 +200,7 @@ html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
         </tr>
       </tbody>
 </table>
--->    
+-->
 
 
         <!-- Script to run the graph for DIA-->
