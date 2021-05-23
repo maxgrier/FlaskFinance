@@ -1,0 +1,216 @@
+<!-- Invoices Table -->
+<H1>The Stock Site</H1>
+
+<!-- Headers and references to those pages -->
+<ul>
+    <!--<li><a href="index.html">Home</a></li>-->
+    <li><a>SPY: ${{ sp_total_data[1] }}</a></li>
+    <li><a>DIA: ${{ dow_total_data[1] }}</a></li>
+    <li><a>QQQ: ${{ nasdaq_total_data[1] }}</a></li>
+    <li><a></a></li>
+</ul>	
+<body>
+    <!-- Search bar to look by type
+    <form class="drop_down" name="drop_down" method='GET'>
+        <label for="billDate">Filter By Employee:</label><br>
+         <select name="employee_filter" onload='this.form.submit()'>
+           <optgroup label="Employee ID">
+                {% if filter == "All" %}
+                <option value="All" name="employee_filter" selected="selected">All</option>
+                {% else %}
+                <option value="All" name="employee_filter">All</option>
+                {% endif %}
+              </option>
+                {% for type in types %}
+                {% if filter == type[2] %}
+                <option value="{{type[2]}}" selected="selected" name="employee_filter">{{ type[2] }}</option>
+                {% else %}
+                <option value="{{type[2]}}" name="type_filter">{{ type[2] }}</option>
+                {% endif %}
+                {% endfor %}
+           </optgroup>
+         </select><br>
+       <input type="submit" value="Submit">
+    </form>
+    -->
+<br></br>
+<!-- Form to submit invoice information <h3>{{id}}</h3> -->
+<form action="/" method="POST">
+  <fieldset>
+      <legend>Search Stock Information:</legend>
+      <label>Ticker Symbol:
+          <input type="text" name="ticker_symbol" size="30" maxlength="100">
+      </label>
+      <br>
+      <input type="submit" value="Search">
+    </fieldset>
+</form>
+
+
+<!-- Table to display stock information -->
+<!--
+<div>
+    <legend><H2>Stock Price Information For {{tickers.0}}</H2></legend>
+    <table class="table">
+        <thead>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Volume</th>
+            <th>Dividends</th>
+            <th>Stock Splits</th>
+        </thead>
+
+        <tbody>
+            
+            <tr>
+              <td> ${{ sp_total_data.0 }}</td>
+              <td> ${{ sp_total_data[1] }}</td>
+              <td> ${{ sp_total_data[2] }}</td>
+              <td> ${{ sp_total_data[3] }}</td>
+              <td> {{ sp_total_data[4] }}</td>
+              <td> {{ sp_total_data[5] }}</td>
+              <td> {{ sp_total_data[6] }}</td>
+            </tr>
+          </tbody>
+</table>
+</div> 
+-->
+    
+      <!-- Loop through and make ids then tables for the graphs-->
+      {% for id in ids %}
+          <!--<h3>{{id}}</h3> hidding actual id display-->
+
+      <!-- Table to display invoice information -->
+        <div>
+          <legend><H2>Stock Price Information For {{tickers.0}}</H2></legend>
+          <table class="table">
+              <thead>
+                  <th>Open</th>
+                  <th>High</th>
+                  <th>Low</th>
+                  <th>Close</th>
+                  <th>Volume</th>
+                  <th>Dividends</th>
+                  <th>Stock Splits</th>
+              </thead>
+
+              <tbody>
+                  
+                  <tr>
+                    <td> ${{ sp_total_data.0 }}</td>
+                    <td> ${{ sp_total_data[1] }}</td>
+                    <td> ${{ sp_total_data[2] }}</td>
+                    <td> ${{ sp_total_data[3] }}</td>
+                    <td> {{ sp_total_data[4] }}</td>
+                    <td> {{ sp_total_data[5] }}</td>
+                    <td> {{ sp_total_data[6] }}</td>
+                  </tr>
+                </tbody>
+        </table>
+        
+        {{prefixes.count}}
+        </div>
+          <div id="{{id}}"></div>
+        {% endfor %}
+      
+    
+      <!-- D3.js -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+      <!-- Plotly.js -->
+      <script src="https://cdn.plot.ly/plotly-basic-latest.js"></script>
+  
+      <script type="text/javascript">
+  
+          var graphs = {{graphJSON | safe}};
+          var ids = {{ids | safe}};
+  
+          for(var i in graphs) {
+              Plotly.plot(ids[i], // the ID of the div, created above
+                          graphs[i].data,
+                          graphs[i].layout || {});
+          }
+        </script>
+  
+  
+</body>
+  </html>
+  
+
+
+
+<!-- This style seciton could be replaces with a style sheet or something-->
+<style>
+/* General background and table style*/
+body{
+    background-color: #F5F5F5;
+}
+
+h1, h4, h2{
+    text-align: center;
+}
+
+table, td, tr, th {
+	border: solid;
+    border-width: 2px;
+}
+form {
+	border: solid;
+    border-width: 2px;
+	width: 100%
+}
+fieldset{
+    border: none;
+}
+
+/* Navigation bar style */
+ul {
+  /*list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  background-color: #B0C4DE	;
+  overflow: hidden; */
+
+  display: flex;
+  align-items: stretch; /* Default */
+  justify-content: space-between;
+  width: 100%;
+  background: #cacaca;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+   float: left;
+   display: block;
+  flex: 0 1 auto; /* Default */
+  list-style-type: none;
+  background: #fafafa;
+}
+
+/*li a {
+  display: block;
+  color: black;
+  padding: 10px 37px;
+  text-decoration: none;
+}*/
+
+/* Hover color*/
+li a:hover {
+  background-color: #4682B4;
+  color: white;
+}
+
+.table{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+</style>
+
+
